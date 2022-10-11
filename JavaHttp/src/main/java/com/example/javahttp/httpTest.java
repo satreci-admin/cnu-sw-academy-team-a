@@ -1,7 +1,7 @@
 package com.example.javahttp;
 
-import org.springframework.boot.configurationprocessor.json.JSONException;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -13,6 +13,7 @@ import java.nio.file.Paths;
 public class httpTest {
 
     static String url_temp = "http://localhost:8081/JavaHttp_war_exploded/hello-servlet";
+    //static String url_temp = "https://webhook.site/a518d984-3080-474f-9c45-6a6b6c818e69";
     private static HttpURLConnection testHttpUrlConnection() throws MalformedURLException, IOException {
         long startTime = System.currentTimeMillis();
         URL url = new URL(url_temp);
@@ -61,11 +62,27 @@ public class httpTest {
         return sb.toString();
     }
 
+    public static String JsonCreate(){
+        JSONObject jsonob = new JSONObject();
+        JSONArray jsonarr = new JSONArray();
 
+        for(int i=0; i<3; i++){
+            JSONObject data = new JSONObject();
+
+            data.put("name", "name_" + i);
+            data.put("age", 10+i);
+
+            jsonarr.add(data);
+        }
+
+        jsonob.put("Humans", jsonarr);
+
+        return jsonob.toString();
+    }
 
     public static String POST(){
 
-        /*
+       /*
         InputStream is = null;
         String result = "";
 
@@ -85,7 +102,7 @@ public class httpTest {
             json = jsonObject.toString();
 
             httpCon.setRequestMethod("POST");
-            httpCon.setRequestProperty("Accept", "application/json");
+
             httpCon.setRequestProperty("Content-type", "application/json");
 
             // OutputStream으로 POST 데이터를 넘겨주겠다는 옵션.
@@ -108,14 +125,30 @@ public class httpTest {
         }
         return result;
 
-         */
+
         InputStream is = null;
         String result = "";
+        */
 
         try {
             URL urlCon = new URL(url_temp);
             HttpURLConnection httpCon = (HttpURLConnection)urlCon.openConnection();
-            String json = "";
+
+            httpCon.setRequestMethod("POST");
+            httpCon.setRequestProperty("Accept", "application/json");
+            httpCon.setRequestProperty("Content-Type", "application/json; utf-8");
+
+            httpCon.setDoOutput(true);
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(httpCon.getOutputStream()));
+
+            bw.write(JsonCreate());
+            bw.flush();
+            bw.close();
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(httpCon.getInputStream(), "UTF-8"));
+            String returnMsg = br.readLine();
+
+            System.out.println("returnMsg1 : " + returnMsg);
 
 
         }
@@ -132,10 +165,21 @@ public class httpTest {
         URL urlCon = new URL(url_temp);
         HttpURLConnection httpCon = (HttpURLConnection)urlCon.openConnection();
 
-        BufferedReader in = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
-        String returnMsg = in.readLine();
-        System.out.println("Aa");
-        System.out.println(returnMsg);
+        httpCon.setRequestMethod("GET");
+        httpCon.setRequestProperty("Accept", "application/json");
+        httpCon.setRequestProperty("Content-Type", "application/json; utf-8");
+
+        //httpCon.setDoOutput(true);
+
+
+        StringBuffer sb = new StringBuffer();
+        BufferedReader br = new BufferedReader(new InputStreamReader(httpCon.getInputStream(), "UTF-8"));
+
+        while(br.ready()){
+            sb.append(br.readLine());
+        }
+        System.out.println("returnMsg : " + sb);
+
 
         int responseCode = httpCon.getResponseCode();
         if(responseCode == 400){
@@ -143,13 +187,10 @@ public class httpTest {
         } else if (responseCode == 500) {
             System.out.println("500 : 서버에러");
         } else {
-            System.out.println(responseCode);
+            System.out.println("");
         }
-
-
         return "a";
     }
-
 
 
         public static void main(String[] args) throws MalformedURLException, IOException {
@@ -163,15 +204,11 @@ public class httpTest {
         if (statusCode == 200) {
             BufferedReader br = new BufferedReader(new InputStreamReader(httpConn.getInputStream()));
             res = getStringFromJson(br);
-           // res = getJsonObjectStringFromFile();
         } else {
             res = getJsonObjectStringFromFile();
         }
 
         System.out.println("result string: " + res);
-
-
-
 
     }
 
