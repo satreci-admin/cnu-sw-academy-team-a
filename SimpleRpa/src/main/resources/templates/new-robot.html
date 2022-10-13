@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+    <title>로봇 등록</title>
+</head>
+<body class="container-fluid">
+<h1>로봇 등록</h1>
+<form th:action="@{/robots}" method="post">
+    <div class="mb-3">
+        <label for="robotName" class="form-label">robotName</label>
+        <input type="text" class="form-control" id="robotName" name="robotName">
+    </div>
+    <div class="mb-3">
+        <label for="ip" class="form-label">ip</label>
+        <input type="text" class="form-control" id="ip" name="ip">
+    </div>
+    <div class="mb-3">
+        <label for="portNum" class="form-label">portNum</label>
+        <input type="text" class="form-control" id="portNum" name="portNum">
+    </div>
+    <div class="mb-3">
+        <label for="user" class="form-label">user</label>
+        <input type="text" class="form-control" id="user" name="user">
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">password</label>
+        <input type="text" class="form-control" id="password" name="password">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</body>
+</html>
