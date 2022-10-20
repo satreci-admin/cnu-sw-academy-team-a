@@ -1,6 +1,6 @@
 package com.example.simplerpa.repository;
 
-import com.example.simplerpa.model.Robot;
+import com.example.simplerpa.model.Robot.Robot;
 import com.wix.mysql.EmbeddedMysql;
 import com.wix.mysql.ScriptResolver;
 import com.wix.mysql.config.Charset;
@@ -53,4 +53,49 @@ class RobotJdbcRepositoryTest {
         var all = repository.findAll();
         assertThat(all.isEmpty(), is(false));
     }
+
+    @Test
+    @Order(2)
+    @DisplayName("이름으로 로봇 조회")
+    void testFindByName() {
+        var robot = repository.findByName(newRobot.getRobotName());
+        assertThat(robot.isEmpty(), is(false));
+    }
+
+    @Test
+    @Order(3)
+    @DisplayName("ip로 로봇 조회")
+    void testFindByIp() {
+        var robot = repository.findByIp(newRobot.getIp());
+        assertThat(robot.isEmpty(), is(false));
+    }
+
+    @Test
+    @Order(4)
+    @DisplayName("user로 로봇 조회")
+    void testFindByCategory() {
+        var robot = repository.findByUser(newRobot.getUser());
+        assertThat(robot.isEmpty(), is(false));
+    }
+
+    @Test
+    @Order(5)
+    @DisplayName("update 로봇")
+    void testUpdate() {
+        newRobot.setRunning(true);
+        repository.update(newRobot);
+
+        var robot = repository.findByName(newRobot.getRobotName());
+        assertThat(robot.isEmpty(), is(false));
+//        assertThat(robot.get(), samePropertyValuesAs(newRobot));
+    }
+//
+//    @Test
+//    @Order(6)
+//    @DisplayName("delete all.")
+//    void testDeleteAll() {
+//        repository.deleteAll();
+//        var all = repository.findAll();
+//        assertThat(all.isEmpty(), is(true));
+//    }
 }

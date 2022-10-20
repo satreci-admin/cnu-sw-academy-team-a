@@ -1,6 +1,6 @@
 package com.example.simplerpa.service;
 
-import com.example.simplerpa.model.Robot;
+import com.example.simplerpa.model.Robot.Robot;
 import com.example.simplerpa.repository.RobotRepository;
 import org.springframework.stereotype.Service;
 

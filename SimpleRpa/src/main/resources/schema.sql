@@ -13,8 +13,7 @@ CREATE TABLE work_statements
     created_at     datetime(6) NOT NULL,
     updated_at     datetime(6)          DEFAULT NULL,
     PRIMARY KEY (statement_id),
-    UNIQUE KEY statementid_UNIQUE (statement_id),
-    UNIQUE KEY email_UNIQUE (email)
+    UNIQUE KEY statementid_UNIQUE (statement_id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 drop table work_statements;

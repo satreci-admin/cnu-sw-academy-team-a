@@ -1,7 +1,6 @@
 package com.example.simplerpa.service;
 
-import com.example.simplerpa.model.Email;
-import com.example.simplerpa.model.Robot;
+import com.example.simplerpa.model.Robot.Robot;
 
 import java.util.List;
 

@@ -118,5 +118,4 @@ public class WorkJdbcRepository implements WorkRepository {
         return paramMap;
     }
 
-
 }

@@ -1,6 +1,6 @@
 package com.example.simplerpa.repository;
 
-import com.example.simplerpa.model.Robot;
+import com.example.simplerpa.model.Robot.Robot;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -33,8 +33,8 @@ public class RobotJdbcRepository implements RobotRepository {
     @Override
     public Robot update(Robot robot) {
         var update = jdbcTemplate.update(
-            "UPDATE robots SET robot_name =:robotName, ip =:ip, port_num =:portNum, user =:user, password =:password, running =:running, deleted =:deleted, created_at =:createdAt, updated_at =:updatedAt"+
-                "WHERE robot_id = :robotId",
+            "UPDATE robots SET robot_name = :robotName, ip = :ip, port_num =:portNum, user = :user, password = :password, running = :running, deleted = :deleted, created_at = :createdAt, updated_at = :updatedAt"+
+                " WHERE robot_name = :robotName",
             toRobotParamMap(robot)
         );
         if(update !=1){
@@ -46,6 +46,18 @@ public class RobotJdbcRepository implements RobotRepository {
     @Override
     public List<Robot> findAll() {
         return jdbcTemplate.query("select * from robots", robotRowMapper);
+    }
+
+    @Override
+    public Optional<Robot> findById(int robotId) {
+        try {
+            return Optional.ofNullable(
+                jdbcTemplate.queryForObject("SELECT * FROM robots WHERE robot_id =:robotId",
+                    Collections.singletonMap("robotId", robotId), robotRowMapper)
+            );
+        } catch (EmptyResultDataAccessException e) {
+            return Optional.empty();
+        }
     }
 
     @Override
@@ -124,7 +136,7 @@ public class RobotJdbcRepository implements RobotRepository {
         boolean deleted = resultSet.getBoolean("deleted");
         LocalDateTime createdAt = toLocalDateTime(resultSet.getTimestamp("created_at"));
         LocalDateTime updatedAt = toLocalDateTime(resultSet.getTimestamp("updated_at"));
-        return new Robot(robotId, robotName, ip, port_num, user, password, running, deleted, createdAt, updatedAt);
+        return new Robot(robotId, robotName, ip, port_num, user, password, running, deleted);
     };
 
     private Map<String, Object> toRobotParamMap(Robot robot) { // 삽입 또는 수정할 때 필요한 파라미터 맵
