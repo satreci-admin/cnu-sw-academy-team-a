@@ -1,5 +1,15 @@
 spring:
+<<<<<<< Updated upstream
   datasource:
     url: jdbc:mysql://localhost/simple_rpa
     username: root
     password: root1234!
+=======
+    datasource:
+        url: jdbc:mysql://localhost/simpleRPA
+        username: root
+        password: 1234
+
+server:
+    port=8080:
+>>>>>>> Stashed changes
