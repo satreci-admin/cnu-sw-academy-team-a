@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>로봇 목록</title>
+</head>
+<body class="container-fluid">
+<h1></h1>
+<h2>로봇 목록</h2>
+
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <a th:href="@{/new-robot}" class="btn btn-primary me-md-2" type="button">Add Robot</a>
+</div>
+<table class="table table-hover table-striped">
+    <thead>
+    <tr>
+        <th scope="col">robotId</th>
+        <th scope="col">robotName</th>
+        <th scope="col">ip</th>
+        <th scope="col">portNum</th>
+        <th scope="col">user</th>
+        <th scope="col">password</th>
+        <th scope="col">running</th>
+        <th scope="col">createdAt</th>
+        <th scope="col">updatedAt</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="robot: ${robots}" th:object="${robot}">
+        <td th:text="*{robotId}"></td>
+        <td th:text="*{robotName}"></td>
+        <td th:text="*{ip}"></td>
+        <td th:text="*{portNum}"></td>
+        <td th:text="*{user}"></td>
+        <td th:text="*{password}"></td>
+        <td th:text="*{running}"></td>
+        <td th:text="*{createdAt}"></td>
+        <td th:text="*{updatedAt}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
