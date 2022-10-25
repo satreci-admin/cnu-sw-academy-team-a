@@ -14,19 +14,12 @@ public class Email {
         Assert.isTrue(address.length()>=4 && address.length()<=50,"address Length error");
         Assert.isTrue(checkAddress(address), "invalid email address");
         this.address = address;
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
     }
     private static boolean checkAddress(String address){
         return Pattern.matches("\\b[\\w\\.-]+@[\\w\\.-]+\\.\\w{2,4}\\b",address);
     }
 
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -42,21 +35,15 @@ public class Email {
 
     @Override
     public String toString() {
-<<<<<<< Updated upstream
-        final StringBuilder sb = new StringBuilder("Email{");
-        sb.append("address='").append(address).append('\'');
-        sb.append('}');
-=======
+//        final StringBuilder sb = new StringBuilder("Email{");
+//        sb.append("address='").append(address).append('\'');
+//        sb.append('}');
         final StringBuilder sb = new StringBuilder(address);
->>>>>>> Stashed changes
         return sb.toString();
     }
     public String getAddress(){
         return address;
     }
 
-<<<<<<< Updated upstream
 }
-=======
-}
->>>>>>> Stashed changes
+

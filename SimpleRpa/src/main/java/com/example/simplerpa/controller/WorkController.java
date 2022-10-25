@@ -29,7 +29,7 @@ public class WorkController {
     }
 
     @PostMapping("/works")
-    public String newProduct(CreateWorkRequest createWorkRequest){
+    public String newWork(CreateWorkRequest createWorkRequest){
         workService.createWork(
                 new Email(createWorkRequest.email()),
                 createWorkRequest.name(),

@@ -15,13 +15,11 @@ import java.time.LocalTime;
 public class DefaultTestJobA extends QuartzJobBean {
 
     private static final Logger log = LoggerFactory.getLogger(TestJobA.class);
- 
 
     @Override
     protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
         log.info("10초마다 Job 실행");
 
     }
-
 
 }

@@ -3,10 +3,7 @@ package com.example.simplerpa.model;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
-<<<<<<< Updated upstream
-=======
 import java.time.temporal.ChronoUnit;
->>>>>>> Stashed changes
 
 @Getter
 public class Work {
@@ -32,11 +29,6 @@ public class Work {
         this.updatedAt = updatedAt;
     }
 
-<<<<<<< Updated upstream
-    public void setContents(String contents){
-        this.contents  = contents;
-        this.updatedAt = LocalDateTime.now();
-=======
     public Work(Email email, String name, String contents, String schedulerCron) {
         this.email = email;
         this.name = name;
@@ -49,33 +41,28 @@ public class Work {
         isActive = 0;
     }
 
-    public void setContents(String contents){
-        this.contents  = contents;
+    public void setContents(String contents) {
+        this.contents = contents;
         this.updatedAt = LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS);
->>>>>>> Stashed changes
     }
+
     public void setIsActive(int isActive){
         this.isActive = isActive;
+        this.updatedAt = LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS);
     }
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+        this.updatedAt = LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS);
     }
 
     public void setSchedulerCron(String schedulerCron) {
         this.schedulerCron = schedulerCron;
-<<<<<<< Updated upstream
-        this.updatedAt = LocalDateTime.now();
-=======
         this.updatedAt = LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS);
->>>>>>> Stashed changes
     }
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-<<<<<<< Updated upstream
 }
-=======
-}
->>>>>>> Stashed changes
+
