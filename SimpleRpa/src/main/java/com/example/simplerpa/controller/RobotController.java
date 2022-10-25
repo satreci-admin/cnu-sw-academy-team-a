@@ -1,6 +1,7 @@
 package com.example.simplerpa.controller;
 
 import com.example.simplerpa.service.RobotService;
+import com.example.simplerpa.service.WorkService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,11 @@ public class RobotController {
         return "new-robot";
     }
 
+    @GetMapping("update-robot")
+    public String updateRobotPage(){
+        return "update-robot";
+    }
+
     @PostMapping("/robots")
     public String newRobot(CreateRobotRequest createRobotRequest) {
         robotService.createRobot(
@@ -35,6 +41,18 @@ public class RobotController {
             createRobotRequest.user(),
             createRobotRequest.password()
         );
+        return "redirect:/robots";
+    }
+
+    @PostMapping("/update-robot")
+    public String updateRobot(UpdateRobotRequest updateRobotRequest){
+        robotService.updateRobot(
+                updateRobotRequest.robotId(),
+                updateRobotRequest.robotName(),
+                updateRobotRequest.ip(),
+                updateRobotRequest.portNum(),
+                updateRobotRequest.user(),
+                updateRobotRequest.password());
         return "redirect:/robots";
     }
 }

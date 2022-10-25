@@ -11,6 +11,8 @@ public interface RobotRepository {
     Robot update(Robot robot);
 
     List<Robot> findAll();
+    Optional<Robot> findById(int robotId);
+
     Optional<Robot> findByName(String robotName);
     Optional<Robot> findByIp(String ip);
     Optional<Robot> findByUser(String user);

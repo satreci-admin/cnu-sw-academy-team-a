@@ -9,7 +9,8 @@ public interface WorkService {
 
     List<Work> getAllWork();
     //Optional<Work> findByCron(String schedulerCron);
-    void createWork(Email email, String name, String contents, String schedulerCron);
+    Work createWork(Email email, String name, String contents, String schedulerCron);
+    Work updateWork(int statementId, String name, String contents, String schedulerCron);
 
 
 }

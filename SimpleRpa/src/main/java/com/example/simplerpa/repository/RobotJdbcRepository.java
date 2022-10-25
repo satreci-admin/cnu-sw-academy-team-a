@@ -34,7 +34,7 @@ public class RobotJdbcRepository implements RobotRepository {
     public Robot update(Robot robot) {
         var update = jdbcTemplate.update(
             "UPDATE robots SET robot_name =:robotName, ip =:ip, port_num =:portNum, user =:user, password =:password, running =:running, deleted =:deleted, created_at =:createdAt, updated_at =:updatedAt"+
-                "WHERE robot_id = :robotId",
+                " WHERE robot_id = :robotId",
             toRobotParamMap(robot)
         );
         if(update !=1){
@@ -46,6 +46,18 @@ public class RobotJdbcRepository implements RobotRepository {
     @Override
     public List<Robot> findAll() {
         return jdbcTemplate.query("select * from robots", robotRowMapper);
+    }
+
+    @Override
+    public Optional<Robot> findById(int robotId) {
+        try {
+            return Optional.ofNullable(
+                    jdbcTemplate.queryForObject("SELECT * FROM robots WHERE robot_id =:robotId",
+                            Collections.singletonMap("robotId", robotId), robotRowMapper)
+            );
+        } catch (EmptyResultDataAccessException e) {
+            return Optional.empty();
+        }
     }
 
     @Override

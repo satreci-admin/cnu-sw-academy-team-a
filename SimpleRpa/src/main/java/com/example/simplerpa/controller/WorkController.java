@@ -27,6 +27,10 @@ public class WorkController {
     public String newWorkPage() {
         return "new-work";
     }
+    @GetMapping("update-work")
+    public String updateWorkPage(){
+        return "update-work";
+    }
 
     @PostMapping("/works")
     public String newWork(CreateWorkRequest createWorkRequest){
@@ -35,6 +39,16 @@ public class WorkController {
                 createWorkRequest.name(),
                 createWorkRequest.contents(),
                 createWorkRequest.schedulerCron());
+        return "redirect:/works";
+    }
+
+    @PostMapping("/update-work")
+    public String updateWork(UpdateWorkRequest updateWorkRequest){
+        workService.updateWork(
+                updateWorkRequest.statementId(),
+                updateWorkRequest.name(),
+                updateWorkRequest.contents(),
+                updateWorkRequest.schedulerCron());
         return "redirect:/works";
     }
 }

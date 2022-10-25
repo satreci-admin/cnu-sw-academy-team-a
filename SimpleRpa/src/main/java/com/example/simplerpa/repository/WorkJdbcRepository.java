@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 import static com.example.simplerpa.JdbcUtils.toLocalDateTime;
@@ -34,8 +35,8 @@ public class WorkJdbcRepository implements WorkRepository {
     @Override
     public Work update(Work work) {
         var update = jdbcTemplate.update(
-                "UPDATE work_statements SET name =:name,contents =:contents,scheduler_cron =:schedulerCron,created_at = :createdAt,updated_at =:updatedAt"+
-                        "WHERE statement_id = :statementId",
+                "UPDATE work_statements SET email =:email, statement_id =:statementId,statement_name =:name,contents =:contents,deleted =:deleted,scheduler_cron =:schedulerCron, is_active =:isActive, created_at = :createdAt,updated_at =:updatedAt"+
+                        " WHERE statement_id = :statementId",
                 toParamMap(work)
         );
         if(update !=1){
@@ -115,7 +116,7 @@ public class WorkJdbcRepository implements WorkRepository {
         paramMap.put("deleted", work.isDeleted());
         paramMap.put("schedulerCron", work.getSchedulerCron());
         paramMap.put("isActive", work.getIsActive());
-        paramMap.put("createdAt", work.getUpdatedAt());
+        paramMap.put("createdAt", work.getCreatedAt());
         paramMap.put("updatedAt", work.getUpdatedAt());
         return paramMap;
     }

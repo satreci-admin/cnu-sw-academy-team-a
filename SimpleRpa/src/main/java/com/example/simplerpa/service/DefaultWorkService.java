@@ -6,6 +6,7 @@ import com.example.simplerpa.repository.WorkRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -24,15 +25,26 @@ public class DefaultWorkService implements WorkService{
     }
 
     @Override
-    public void createWork(Email email, String name, String contents, String schedulerCron) {
+    public Work createWork(Email email, String name, String contents, String schedulerCron) {
         var work = new Work(email, name, contents, schedulerCron);
 
-        workRepository.insert(work);
+        return workRepository.insert(work);
     }
 
+    public Work updateWork(int statementId, String name, String contents, String schedulerCron) {
 
+        var work = new Work(workRepository.findById(statementId).get().getEmail(),
+                statementId,
+                name,
+                contents,
+                workRepository.findById(statementId).get().isDeleted(),
+                schedulerCron,
+                workRepository.findById(statementId).get().getIsActive(),
+                workRepository.findById(statementId).get().getCreatedAt(),
+                LocalDateTime.now());
 
+        return workRepository.update(work);
 
-
+    }
 
 }
