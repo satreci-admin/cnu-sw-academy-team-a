@@ -8,7 +8,7 @@ public class _Main {
 
     public static void main(String[] args) {
 
-        Jsch_service js = new Jsch_service();
+//        Jsch_service js = new Jsch_service();
 
 
 

@@ -1,12 +1,6 @@
 package com.example.simplerpa.service.Jsch;
 
 import com.example.simplerpa.repository.RobotRepository;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Service;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 
 public class SSH_Controller {
 
@@ -14,8 +8,9 @@ public class SSH_Controller {
     //Private Instance Variables
     private final RobotRepository robotRepository;
 
-    public SSH_Controller(RobotRepository robotRepository) {
+    public SSH_Controller(RobotRepository robotRepository, int robotId) {
         this.robotRepository = robotRepository;
+        this.robotId = robotId;
     }
 
 
@@ -99,11 +94,6 @@ public class SSH_Controller {
         //String fileName = "test1.sh";  //localDirPathAndName 에 쉘스크립트 이름까지 풀 경로를 저장했는데, 쉘스크립트 이름 따로 넣을수
         String robotDirPath = "/home/rasbian";
          */
-
-        robotId = 1;
-
-
-
 
         set_remoteHostUser(robotRepository.findById(robotId).get().getUser()); //rasbian
         set_remoteHostIp(robotRepository.findById(robotId).get().getIp()); // robot 의 ip 주소(다양하게 변경해서 실험)
