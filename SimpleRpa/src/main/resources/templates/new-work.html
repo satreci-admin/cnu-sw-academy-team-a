@@ -14,17 +14,20 @@
 <body class="container-fluid">
 <h1>작업명세서 등록</h1>
 <form th:action="@{/works}" method="post">
+
     <div class="mb-3">
         <label for="email" class="form-label">Email</label>
         <input type="text" class="form-control" id="email" name="email">
     </div>
+
+    <div class="mb-3">
+        <label for="robotId" class="form-label">Robot Id</label>
+        <input type="number" class="form-control" id="robotId" name="robotId">
+    </div>
+
     <div class="mb-3">
         <label for="name" class="form-label">Name</label>
         <input type="text" class="form-control" id="name" name="name">
-       <!-- <select id="Name" name="Name" class="form-select">
-            <option selected>Open this select menu</option>
-            <option value="COFFEE_BEAN_PACKAGE">COFFEE BEAN PACKAGE</option>
-        </select> -->
     </div>
     <div class="mb-3">
         <label for="contents" class="form-label">Contents</label>

@@ -52,7 +52,7 @@ class WorkJdbcRepositoryTest {
     @Autowired
     WorkRepository repository;
 
-    private final Work newWork = new Work(new Email("redchoco06@gmail.com"), "aa", "bb", "0/10 * * * * ?");
+    private final Work newWork = new Work(new Email("redchoco06@gmail.com"), 1,"aa", "bb", "0/10 * * * * ?");
 
     @Test
     @Order(1)

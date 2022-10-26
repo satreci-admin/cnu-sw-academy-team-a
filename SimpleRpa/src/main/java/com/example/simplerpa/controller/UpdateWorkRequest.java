@@ -4,5 +4,5 @@ import com.example.simplerpa.model.Email;
 
 import java.time.LocalDateTime;
 
-public record UpdateWorkRequest(int statementId, String name, String contents, String schedulerCron) {
+public record UpdateWorkRequest(int statementId, int robotId, String name, String contents, String schedulerCron) {
 }

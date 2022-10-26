@@ -25,16 +25,17 @@ public class DefaultWorkService implements WorkService{
     }
 
     @Override
-    public Work createWork(Email email, String name, String contents, String schedulerCron) {
-        var work = new Work(email, name, contents, schedulerCron);
+    public Work createWork(Email email, int robotId, String name, String contents, String schedulerCron) {
+        var work = new Work(email, robotId, name, contents, schedulerCron);
 
         return workRepository.insert(work);
     }
 
-    public Work updateWork(int statementId, String name, String contents, String schedulerCron) {
+    public Work updateWork(int statementId, int robotId, String name, String contents, String schedulerCron) {
 
         var work = new Work(workRepository.findById(statementId).get().getEmail(),
                 statementId,
+                robotId,
                 name,
                 contents,
                 workRepository.findById(statementId).get().isDeleted(),

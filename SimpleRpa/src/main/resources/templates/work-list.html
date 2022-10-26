@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <title>Grids & Circles</title>
+    <title>작업명세서 목록</title>
 </head>
 <body class="container-fluid">
 <h1></h1>
@@ -23,6 +23,7 @@
     <thead>
     <tr>
         <th scope="col">statementId</th>
+        <th scope="col">robotId</th>
         <th scope="col">Name</th>
         <th scope="col">Email</th>
         <th scope="col">Contents</th>
@@ -35,6 +36,7 @@
     <tbody>
     <tr th:each="work: ${works}" th:object="${work}">
         <td th:text="*{statementId}"></td>
+        <td th:text="*{robotId}"></td>
         <td th:text="*{name}"></td>
         <td th:text="*{email}"></td>
         <td th:text="*{contents}"></td>

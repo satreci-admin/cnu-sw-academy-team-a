@@ -28,6 +28,12 @@ public class WorkStatementRepository implements WorkRepository {
     }
 
     @Override
+    public Optional<Work> findByRobotId(int robotId) {
+        return Optional.empty();
+    }
+
+
+    @Override
     public Optional<Work> findByName(String WorkName) {
         return Optional.empty();
     }

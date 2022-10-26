@@ -10,6 +10,8 @@ public interface WorkRepository {
     Work update(Work work);
     List<Work> findAll();
     Optional<Work> findById(int workId);
+    Optional<Work> findByRobotId(int robotId);
+
     Optional<Work> findByName(String WorkName);
     Optional<Work> findByEmail(Email email);
     void deleteAll();
