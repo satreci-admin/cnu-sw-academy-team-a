@@ -64,6 +64,18 @@ public class WorkJdbcRepository implements WorkRepository {
     }
 
     @Override
+    public Optional<Work> findByRobotId(int robotId) {
+        try {
+            return Optional.ofNullable(
+                    jdbcTemplate.queryForObject("SELECT * FROM work_statements WHERE robot_id =:robotId",
+                            Collections.singletonMap("robotId", robotId), workRowMapper)
+            );
+        } catch (EmptyResultDataAccessException e) {
+            return Optional.empty();
+        }
+    }
+
+    @Override
     public Optional<Work> findByName(String statementName) {
         try{
             return Optional.of(
