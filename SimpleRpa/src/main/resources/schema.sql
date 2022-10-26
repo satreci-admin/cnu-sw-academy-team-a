@@ -4,6 +4,7 @@
 CREATE TABLE work_statements
 (
     statement_id   int         NOT NULL AUTO_INCREMENT,
+    robot_id       int         NOT NULL,
     email          varchar(50) NOT NULL,
     statement_name varchar(20) NOT NULL,
     contents       varchar(45) NOT NULL,
@@ -14,6 +15,7 @@ CREATE TABLE work_statements
     updated_at     datetime(6)          DEFAULT NULL,
     PRIMARY KEY (statement_id),
     UNIQUE KEY statementid_UNIQUE (statement_id),
+    CONSTRAINT robot_id FOREIGN KEY (robot_id) REFERENCES robots (robot_id),
     UNIQUE KEY email_UNIQUE (email)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 

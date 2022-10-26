@@ -36,6 +36,7 @@ public class WorkController {
     public String newWork(CreateWorkRequest createWorkRequest){
         workService.createWork(
                 new Email(createWorkRequest.email()),
+                createWorkRequest.robotId(),
                 createWorkRequest.name(),
                 createWorkRequest.contents(),
                 createWorkRequest.schedulerCron());
@@ -46,6 +47,7 @@ public class WorkController {
     public String updateWork(UpdateWorkRequest updateWorkRequest){
         workService.updateWork(
                 updateWorkRequest.statementId(),
+                updateWorkRequest.robotId(),
                 updateWorkRequest.name(),
                 updateWorkRequest.contents(),
                 updateWorkRequest.schedulerCron());

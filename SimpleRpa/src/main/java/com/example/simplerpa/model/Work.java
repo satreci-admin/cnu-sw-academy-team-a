@@ -9,6 +9,7 @@ import java.time.temporal.ChronoUnit;
 public class Work {
     private final Email email;
     private final int statementId;
+    private final int robotId;
     private final String name;
     private String contents;
     private boolean deleted;
@@ -17,9 +18,10 @@ public class Work {
     private final LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public Work(Email email, int statementId, String name, String contents, boolean deleted, String schedulerCron, int isActive, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Work(Email email, int statementId, int robotId, String name, String contents, boolean deleted, String schedulerCron, int isActive, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.email = email;
         this.statementId = statementId;
+        this.robotId = robotId;
         this.name = name;
         this.contents = contents;
         this.deleted = deleted;
@@ -29,16 +31,17 @@ public class Work {
         this.updatedAt = updatedAt;
     }
 
-    public Work(Email email, String name, String contents, String schedulerCron) {
+    public Work(Email email, int robotId, String name, String contents, String schedulerCron) {
         this.email = email;
+        this.robotId = robotId;
         this.name = name;
         this.contents = contents;
         this.schedulerCron = schedulerCron;
         this.createdAt = LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS);
         this.updatedAt = LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS);
-        statementId = 0;
-        deleted = false;
-        isActive = 0;
+        this.statementId = 0;
+        this.deleted = false;
+        this.isActive = 0;
     }
 
     public void setContents(String contents) {

@@ -24,8 +24,8 @@ public class WorkJdbcRepository implements WorkRepository {
 
     @Override
     public Work insert(Work work) {
-        var update = jdbcTemplate.update("INSERT INTO work_statements(email, statement_id, statement_name, contents, deleted, scheduler_cron, is_active, created_at, updated_at)" +
-                " VALUES (:email, :statementId, :name, :contents, :deleted, :schedulerCron, :isActive, :createdAt, :updatedAt)", toParamMap(work));
+        var update = jdbcTemplate.update("INSERT INTO work_statements(email, statement_id, robot_id, statement_name, contents, deleted, scheduler_cron, is_active, created_at, updated_at)" +
+                " VALUES (:email, :statementId, :robotId, :name, :contents, :deleted, :schedulerCron, :isActive, :createdAt, :updatedAt)", toParamMap(work));
         if (update != 1) {
             throw new RuntimeException("Noting was inserted");
         }
@@ -35,7 +35,7 @@ public class WorkJdbcRepository implements WorkRepository {
     @Override
     public Work update(Work work) {
         var update = jdbcTemplate.update(
-                "UPDATE work_statements SET email =:email, statement_id =:statementId,statement_name =:name,contents =:contents,deleted =:deleted,scheduler_cron =:schedulerCron, is_active =:isActive, created_at = :createdAt,updated_at =:updatedAt"+
+                "UPDATE work_statements SET email =:email, statement_id =:statementId, robot_id =:robotId, statement_name =:name,contents =:contents,deleted =:deleted,scheduler_cron =:schedulerCron, is_active =:isActive, created_at = :createdAt,updated_at =:updatedAt"+
                         " WHERE statement_id = :statementId",
                 toParamMap(work)
         );
@@ -97,6 +97,7 @@ public class WorkJdbcRepository implements WorkRepository {
     private static final RowMapper<Work> workRowMapper = (resultSet, i) -> {
         var email = resultSet.getString("email");
         var statementId = resultSet.getInt("statement_id");
+        var robotId = resultSet.getInt("robot_id");
         var name = resultSet.getString("statement_name");
         var contents = resultSet.getString("contents");
         var deleted = resultSet.getBoolean("deleted");
@@ -104,13 +105,14 @@ public class WorkJdbcRepository implements WorkRepository {
         var isActive = resultSet.getInt("is_active");
         var createdAt = toLocalDateTime(resultSet.getTimestamp("created_at"));
         var updatedAt = toLocalDateTime(resultSet.getTimestamp("updated_at"));
-        return new Work(new Email(email), statementId, name, contents, deleted, schedulerCron, isActive, createdAt, updatedAt);
+        return new Work(new Email(email), statementId, robotId, name, contents, deleted, schedulerCron, isActive, createdAt, updatedAt);
     };
 
     private Map<String, Object> toParamMap(Work work) {
         var paramMap = new HashMap<String, Object>();
         paramMap.put("email", work.getEmail().getAddress());
         paramMap.put("statementId", work.getStatementId());
+        paramMap.put("robotId", work.getRobotId());
         paramMap.put("name", work.getName());
         paramMap.put("contents", work.getContents());
         paramMap.put("deleted", work.isDeleted());
