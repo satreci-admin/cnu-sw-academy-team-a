@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost/simple_rpa
+    username: root
+    password: root1234!
+
+server:
+    port=8080:
