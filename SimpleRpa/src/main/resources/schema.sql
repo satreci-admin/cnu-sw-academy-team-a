@@ -41,3 +41,11 @@ drop table robots;
 
 INSERT INTO work_statements(statement_id, robot_id, email, statement_name, contents, scheduler_cron)
 VALUES (1, 1, 'test@gmail.com', 'test', 'ls -al', '0/10 * * * * ?');
+
+commit;
+
+delete from work_statements where statement_id = 1;
+
+select * from work_statements;
+
+select * from robots;
