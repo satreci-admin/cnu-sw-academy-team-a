@@ -1,8 +1,6 @@
 package com.example.simplerpa.service.Jsch;
 
 import com.jcraft.jsch.*;
-//import com.jcraft.jsch.JSchException;
-//import com.jcraft.jsch.ChannelExec;
 
 import java.io.*;
 import java.util.Properties;
@@ -36,16 +34,16 @@ public class Robot {
     //Constant
     private static final Integer SSH_PORT_NUMBER = 22; // 기본 ssh : 22
 
-    //getter & setter
-    private String robotIp() { return this._hostRobot; }
-    private void set_RobotIp(String new_hostRobotIP) {this._hostRobot = new_hostRobotIP;}
-    private Integer port() { return this._port;}
-    private void set_port(Integer new_port) {this._port = new_port;}
+        //getter & setter
+        private String robotIp() { return this._hostRobot; }
+        private void set_RobotIp(String new_hostRobotIP) {this._hostRobot = new_hostRobotIP;}
+        private Integer port() { return this._port;}
+        private void set_port(Integer new_port) {this._port = new_port;}
 
-    private String user() {return this._localUser;}
-    private void set_user(String new_user) { this._localUser = new_user;}
-    public String robotUser() {return this._robotUser;}
-    public void set_robotUser(String newRobotUser) {this._robotUser = newRobotUser;}
+        private String user() {return this._localUser;}
+        private void set_user(String new_user) { this._localUser = new_user;}
+        public String robotUser() {return this._robotUser;}
+        public void set_robotUser(String newRobotUser) {this._robotUser = newRobotUser;}
     private String robotPassword() {return this._robotPassword;}
     private void set_robotPassword(String newRobotPassword) {this._robotPassword = newRobotPassword;}
     private JSch jsch() {return this._jsch;}

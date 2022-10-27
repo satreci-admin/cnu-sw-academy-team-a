@@ -1,7 +1,7 @@
 package com.example.simplerpa.configuration;
 
 import com.example.simplerpa.repository.WorkRepository;
-import com.example.simplerpa.service.Jsch.DefaultTestJobA;
+import com.example.simplerpa.service.Jsch.SSHService;
 import org.quartz.*;
 import org.springframework.context.annotation.Configuration;
 
@@ -24,13 +24,14 @@ public class JobConfiguration {
 
     @PostConstruct
     public void run() {
-        int workId = 1; // workId가 1인 경우만 테스트. 여러 개의 경우 추후 배치 사용.
+        int statementId = 1; // workId가 1인 경우만 테스트. 여러 개의 경우 추후 배치 사용.
         int robotId = 1; // robotId 추후 추가. 테이블 수정 중.
         var contents = workRepository.findById(1).get().getContents();
-        var schedulerCron = workRepository.findById(workId).get().getSchedulerCron();
-        JobDetail detail = runJobDetail(DefaultTestJobA.class, new HashMap<>());
+        var schedulerCron = workRepository.findById(statementId).get().getSchedulerCron();
+        JobDetail detail = runJobDetail(SSHService.class, new HashMap<>());
         JobDataMap jobDataMap = detail.getJobDataMap();
         jobDataMap.put("robotId", robotId);
+        jobDataMap.put("statementId", statementId);
         jobDataMap.put("contents", contents);
         try {
             scheduler.scheduleJob(detail, runJobTrigger(schedulerCron));

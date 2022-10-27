@@ -8,12 +8,6 @@ public class SSH_Controller {
     //Private Instance Variables
     private final RobotRepository robotRepository;
 
-    public SSH_Controller(RobotRepository robotRepository, int robotId) {
-        this.robotRepository = robotRepository;
-        this.robotId = robotId;
-    }
-
-
     private Robot _robot; //지금은 변수 하나지만, 보다 많은 로봇의 삽입과 삭제 시 보다 효율적이고 빠르게 하기 위해 로봇 자료구조와 알고리즘을 제안
 
     private String      _localHostUser;      // "sysolab";
@@ -28,8 +22,13 @@ public class SSH_Controller {
     private String      _publicKeyPath ;    //= "/home/sysolab/.ssh";
 
     private int robotId;
+    private int statementId;
 
-
+    public SSH_Controller(RobotRepository robotRepository, int robotId, int statementId) {
+        this.robotRepository = robotRepository;
+        this.robotId = robotId;
+        this.statementId = statementId;
+    }
 
     //Getter & setter
 
@@ -98,7 +97,7 @@ public class SSH_Controller {
         set_remoteHostUser(robotRepository.findById(robotId).get().getUser()); //rasbian
         set_remoteHostIp(robotRepository.findById(robotId).get().getIp()); // robot 의 ip 주소(다양하게 변경해서 실험)
         set_robotPassword(robotRepository.findById(robotId).get().getPassword());
-        String localDirPathAndName = "/home/sysolab/test1.sh"; //<======== 로컬 서버의 특정한 디렉토리에 쉘스크립트가 보관되어 있음.
+        String localDirPathAndName = "./src/main/resources/file/" + statementId + ".sh"; //<======== 로컬 서버의 특정한 디렉토리에 쉘스크립트가 보관되어 있음.
         //String fileName = "test1.sh";  //localDirPathAndName 에 쉘스크립트 이름까지 풀 경로를 저장했는데, 쉘스크립트 이름 따로 넣을수
         String robotDirPath = "/home/rasbian";
 

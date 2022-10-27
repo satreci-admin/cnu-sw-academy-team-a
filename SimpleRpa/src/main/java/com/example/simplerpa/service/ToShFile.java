@@ -1,33 +1,31 @@
 package com.example.simplerpa.service;
 
-import com.example.simplerpa.repository.WorkRepository;
-
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class ToShFile {
 
-    private final WorkRepository workRepository;
+    public void toFile(int statementId, String contents){
+        try {
 
-    public ToShFile(WorkRepository workRepository) {
-        this.workRepository = workRepository;
-    }
+//            File file = new File("c:/file/statementId" + statementId + ".sh");
+            File file = new File("./src/main/resources/file/" + statementId + ".sh");
 
-    public void toFile(int statementId){
 
-        statementId = workRepository.findById(statementId).get().getStatementId();
-
-        File file = new File("c:\\file\\statementId" + statementId + ".txt");
-
-        FileOutputStream fileOutputStream;
-
-        {
-            try {
-                fileOutputStream = new FileOutputStream(file, true);
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
+            if (!file.exists()) {
+                file.createNewFile();
             }
+
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            bw.write(contents);
+            bw.close();
+
+        } catch (IOException e){
+            e.printStackTrace();
         }
     }
 }
