@@ -30,7 +30,7 @@ public class SSHService extends QuartzJobBean {
         int robotId = jobDataMap.getIntValue("robotId");
         int statementId = jobDataMap.getIntValue("statementId");
         String contents = jobDataMap.getString("contents");
-        log.info("10초마다 Job 실행");
+        contents = contents.replace("\r\n", "\n");
         log.info(robotId + " " + contents);
 
         // 쉘 스크립트로 변환

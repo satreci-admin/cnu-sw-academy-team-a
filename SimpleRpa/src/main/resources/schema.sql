@@ -7,7 +7,7 @@ CREATE TABLE work_statements
     robot_id       int         NOT NULL,
     email          varchar(50) NOT NULL,
     statement_name varchar(20) NOT NULL,
-    contents       varchar(45) NOT NULL,
+    contents       varchar(500) NOT NULL,
     deleted        tinyint(1)  NOT NULL DEFAULT '0',
     scheduler_cron varchar(45)          DEFAULT NULL COMMENT '크론표현식',
     is_active      tinyint(1)           DEFAULT '0',
@@ -39,12 +39,14 @@ CREATE TABLE robots
 
 drop table robots;
 
-INSERT INTO work_statements(statement_id, robot_id, email, statement_name, contents, scheduler_cron)
-VALUES (1, 1, 'test@gmail.com', 'test', 'ls -al', '0/10 * * * * ?');
+INSERT INTO work_statements(statement_id, robot_id, email, statement_name, contents, scheduler_cron, created_at, updated_at)
+VALUES (1, 3, 'test@gmail.com', 'test_work', '#!/bin/sh\n/usr/bin/xdg-open \"https://cnu-ac-kr.zoom.us/j/89877197507?pwd=by9zb3RFb2x2dHdtTUJzVEdJY3pXZz09\"', '0/10 * * * * ?','2022-10-28T13:10:30.278', '2022-10-28T13:10:30.278');
 
 commit;
 
 delete from work_statements where statement_id = 1;
+
+delete from robots;
 
 select * from work_statements;
 

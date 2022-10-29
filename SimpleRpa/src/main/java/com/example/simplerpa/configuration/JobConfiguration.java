@@ -25,8 +25,8 @@ public class JobConfiguration {
     @PostConstruct
     public void run() {
         int statementId = 1; // workId가 1인 경우만 테스트. 여러 개의 경우 추후 배치 사용.
-        int robotId = 1; // robotId 추후 추가. 테이블 수정 중.
-        var contents = workRepository.findById(1).get().getContents();
+        int robotId = workRepository.findById(statementId).get().getRobotId(); // robotId 추후 추가. 테이블 수정 중.
+        var contents = workRepository.findById(statementId).get().getContents();
         var schedulerCron = workRepository.findById(statementId).get().getSchedulerCron();
         JobDetail detail = runJobDetail(SSHService.class, new HashMap<>());
         JobDataMap jobDataMap = detail.getJobDataMap();
@@ -41,9 +41,14 @@ public class JobConfiguration {
     }
 
     public Trigger runJobTrigger(String scheduleExp) {
-        // 크론 스케줄 사용
         return TriggerBuilder.newTrigger()
-                .withSchedule(CronScheduleBuilder.cronSchedule(scheduleExp)).build();
+                .withIdentity("triggerName", "group1")
+                .startNow()
+                .build();
+
+        // 크론 스케줄 사용
+//        return TriggerBuilder.newTrigger()
+//                .withSchedule(CronScheduleBuilder.cronSchedule(scheduleExp)).build();
     }
 
     public JobDetail runJobDetail(Class job, Map params) {

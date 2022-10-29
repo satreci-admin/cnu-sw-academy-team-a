@@ -4,9 +4,6 @@ import com.jcraft.jsch.*;
 
 import java.io.*;
 import java.util.Properties;
-//import java.io.BufferedReader;
-//import com.jcraft.jsch.UserInfo;
-
 public class Robot {
 
     //Private Instance Variables
@@ -29,7 +26,6 @@ public class Robot {
     //.sh path
     private String _localScriptFilePathAndName;
     private String _robotDirPath;
-
 
     //Constant
     private static final Integer SSH_PORT_NUMBER = 22; // 기본 ssh : 22
@@ -76,14 +72,10 @@ public class Robot {
             this.set_port(givenPort);
         }
         this.set_privateKeyPath("/home/sysolab/.ssh/id_rsa"); // 본인 로컬 서버의 private ssh key 가 있는 디렉토리 경로
-        // privateKeyPath 는 인자로 받지 않고 Rotbot 객체에 이렇게 생성자로 넣었음.
-        // 그러나 로컬서버에서 미래에 다수의 키로 로봇을 제어하게 되면 이 값도 인자로 받게 고칠수 있어서 일단 생성자에 둠
-        //= "/home/sysolab/.ssh/";  "~/.ssh/ssl_rsa" "/root/.ssh/id_rsa"
 
         this.set_localScriptFilePathAndName(givenLocalDirPathAndName); // 로컬서버에 있는 쉘스크립트파일의 경로와 이름
         this.set_robotDirPath(givenRobotDirPath);
     }
-
 
     //Private Methods
     public int connectRobot(){
@@ -99,26 +91,18 @@ public class Robot {
             File keyFile = new File(this.privateKeyPath());
             System.out.println("keyFile.getPath() : " + keyFile.getPath());
 
-            //String knownHosts = "/home/sysolab/.ssh/known_hosts";
-            //this.jsch().setKnownHosts(knownHosts);
-
             /*사용자인증*/
             this.jsch().addIdentity(keyFile.getPath(),this.robotPassword());
 
             /* (2) session 연결 */
             this.set_session(this.jsch().getSession(this.robotUser(), this.robotIp(), this.port()) ); //this.user()
-            //this.set_session(this.jsch().getSession(this.user(), this.robotIp(), this.port()) ); //this.user()
 
             //username and passphrase
-
             /*세션과 관련된 정보를 설정*/
             Properties config = new Properties();
             config.put("StrictHostKeyChecking", "no");//호스트 키를 확인하지 않겠다
-            //config.put("PreferredAuthentications", "password");
             this.session().setConfig(config);
-
             this.session().setPassword(this.robotPassword());
-
 
             /*세션 연결*/
             this.session().connect();
@@ -126,13 +110,9 @@ public class Robot {
 
             /* (3) Channel */
             this.set_execChannel((ChannelExec)this.session().openChannel("exec"));
-            //System.out.println("ession().openChannel(\"exec\")");
 
-
-            //~~~~//쉘 스크립트 파일 전송//~~~~~
-            //String localDirPathAndName = "/home/sysolab/test1.sh"; //<======== 로컬 서버의 특정한 디렉토리에 쉘스크립트가 보관되어 있음.
-            //String fileName = "test1.sh";
-            //String robotDirPath = "/home/rasbian";
+            //~~~~//쉘 스크립트 파일 전송//~ ~~~~
+            //로컬 서버의 특정한 디렉토리에 쉘스크립트가 보관되어 있음.
 
             this.set_sftpChannel((ChannelSftp)this.session().openChannel("sftp"));
             this.sftpChannel().connect(); /*채널 연결*/
@@ -142,6 +122,7 @@ public class Robot {
                 File file = new File(this.localScriptFilePathAndName());// Upload file
                 FileInputStream fis = new FileInputStream(file);// 입력 파일을 가져온다.
                 this.sftpChannel().put(fis, file.getName());// 파일을 업로드한다.
+
                 fis.close();
                 System.out.println("File uploaded successfully - "+ file.getAbsolutePath());
 
@@ -155,10 +136,7 @@ public class Robot {
             try {
                 InputStream in = this.execChannel().getInputStream();
 
-                ((ChannelExec) this.execChannel()).setCommand("ls -ltr"); //ls -ltr
-                //((ChannelExec) this.channel()).setCommand("./test1.sh"); //chmod 755 test1.sh && ./test1.sh
-
-                ((ChannelExec) this.execChannel()).setCommand("chmod 755 test1.sh && ./test1.sh");
+                ((ChannelExec) this.execChannel()).setCommand("chmod 755 1.sh && ./1.sh");
 
                 ((ChannelExec)this.execChannel()).setErrStream(System.err);
                 this.execChannel().connect(); /*채널 연결*/

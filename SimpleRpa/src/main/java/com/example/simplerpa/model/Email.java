@@ -35,9 +35,6 @@ public class Email {
 
     @Override
     public String toString() {
-//        final StringBuilder sb = new StringBuilder("Email{");
-//        sb.append("address='").append(address).append('\'');
-//        sb.append('}');
         final StringBuilder sb = new StringBuilder(address);
         return sb.toString();
     }

@@ -50,57 +50,15 @@ public class SSH_Controller {
     public String robotPassword() { return this._robotPassword; }
     public void set_robotPassword(String newRobotPassword) { this._robotPassword = newRobotPassword; }
 
-
-    //Constructor
-
-
-    //Private Methods
-
-
-
     //public method
     public void runSSH(){
 
-        //AppView.outputLine("user :" + this.localHostUser());
-        //AppView.outputLine("localHost : " + this.localHostIp());
-
-        // localserver Ip : sysolab 168.188.129.195
-
-        /* <list of test remoteHost (robot) Ip  //테스트용으로 적어놓은거라 무시해도
-        (1) neusi_2
-        168.188.128.98
-
-        (2) sslab
-        168.188.129.195
-
-        (3) rasbian
-        168.188.128.76
-         */
-
-        /*
-        <<< 여기에 사용자가 입력한 로봇의 정보를 DB로부터 불러오는 코드 부분을 구현한다 >>>
-        임시로 아래와 같이 넘겨줄 인자를 저장함
-         */
-
         this.set_localHostUser(System.getProperty("user.name"));
-
-        /*
-        set_localHostIp("168.188.129.195");
-        set_remoteHostUser("rasbian");
-        set_remoteHostIp("168.188.128.76"); // robot 의 ip 주소(다양하게 변경해서 실험)
-        set_robotPassword("rasbian333");
-        String localDirPathAndName = "/home/sysolab/test1.sh"; //<======== 로컬 서버의 특정한 디렉토리에 쉘스크립트가 보관되어 있음.
-        //String fileName = "test1.sh";  //localDirPathAndName 에 쉘스크립트 이름까지 풀 경로를 저장했는데, 쉘스크립트 이름 따로 넣을수
-        String robotDirPath = "/home/rasbian";
-         */
-
         set_remoteHostUser(robotRepository.findById(robotId).get().getUser()); //rasbian
         set_remoteHostIp(robotRepository.findById(robotId).get().getIp()); // robot 의 ip 주소(다양하게 변경해서 실험)
         set_robotPassword(robotRepository.findById(robotId).get().getPassword());
-        String localDirPathAndName = "./src/main/resources/file/" + statementId + ".sh"; //<======== 로컬 서버의 특정한 디렉토리에 쉘스크립트가 보관되어 있음.
-        //String fileName = "test1.sh";  //localDirPathAndName 에 쉘스크립트 이름까지 풀 경로를 저장했는데, 쉘스크립트 이름 따로 넣을수
+        String localDirPathAndName = "./SimpleRpa/src/main/resources/file/1.sh"; //<======== 로컬 서버의 특정한 디렉토리에 쉘스크립트가 보관되어 있음.
         String robotDirPath = "/home/rasbian";
-
 
         //(1) 로봇 객체를 생성한다. (리눅스 서버(localHost)의 정보를 생성자에게 넘겨준다
        /*

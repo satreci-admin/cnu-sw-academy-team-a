@@ -9,9 +9,7 @@ public class ToShFile {
 
     public void toFile(int statementId, String contents){
         try {
-
-//            File file = new File("c:/file/statementId" + statementId + ".sh");
-            File file = new File("./src/main/resources/file/" + statementId + ".sh");
+            File file = new File("./SimpleRpa/src/main/resources/file/" + statementId + ".sh");
 
 
             if (!file.exists()) {
